@@ -2,8 +2,8 @@
   "images": [
     {
       "imgPath": "img/myImg/bangladesh.png",
-      "imgLocation": "Bangladesh officially the People's Republic of Bangladesh (গণপ্রজাতন্ত্রী বাংলাদেশ)",
-      "description": "",
+      "imgLocation": "Bangladesh",
+      "description": "Bangladesh officially the People's Republic of Bangladesh",
       "date": "04/08/2019"
     },
     {
@@ -20,13 +20,13 @@
     },
     {
       "imgPath": "img/myImg/uk.png",
-      "imgLocation": "UK",
+      "imgLocation": "United Kingdon",
       "description": "United Kingdom of Great Britain and Northern Ireland.",
       "date": "04/08/2019"
     },
     {
-      "imgPath": "usa.png",
-      "imgLocation": "USA",
+      "imgPath": "img/myImg/usa.gif",
+      "imgLocation": "United States of America",
       "description": "The United States of America (USA), commonly known as the United States (U.S. or US)",
       "date": "04/08/2019"
     }

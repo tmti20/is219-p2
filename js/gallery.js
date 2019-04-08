@@ -31,6 +31,32 @@ function animate() {
 }
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
+// GET json from URL
+
+
+
+function getQueryParams(qs) {
+	qs = qs.split("+").join(" ");
+	var params = {},
+		tokens,
+		re = /[?&]?([^=]+)=([^&]*)/g;
+	while (tokens = re.exec(qs)) {
+		params[decodeURIComponent(tokens[1])]
+			= decodeURIComponent(tokens[2]);
+	}
+	return params;
+}
+
+var $_GET = getQueryParams(document.location.search);
+console.log($_GET["json"]); // would output "John"
+var mUrl;
+
+if ($_GET['json']== undefined){
+	mUrl = '../images.json';
+}
+else {
+	mUrl = $_GET['json'];
+}
 
 //information image function that holds data.
 function GalleryImage( location, description, date, url ) {
@@ -50,7 +76,7 @@ var mCurrentIndex = 0;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = "../images.json";
+//var mUrl = "../images.json";
 
 function reqListener () {
 	console.log(this.responseText);
@@ -112,6 +138,9 @@ $(document).ready( function() {
 	$('.details').eq(0).show();
 	
 });
+
+
+
 
 window.addEventListener('load', function() {
 	
