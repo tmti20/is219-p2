@@ -56,15 +56,18 @@ mRequest.addEventListener("load", reqListener);
 mRequest.open("GET", mUrl, false);
 mRequest.send();
 
-
-
-
 // Array holding GalleryImage objects (see below).
 var mImages = [];
 
 // Holds the retrived JSON information
 var mJson = JSON.parse(mRequest.responseText);
 console.log(mJson);
+
+// Populates mImages array with GalleryImage objects
+mJson.images.forEach(image => {
+    mImages.push(new GalleryImage(image.imgLocation, image.description, image.date, image.imgPath));
+});
+console.log(mImages);
 
 
 
@@ -81,7 +84,7 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
-	$('.details').eq(0).hide();
+	$('.details').eq(0).show();
 	
 });
 
