@@ -31,10 +31,9 @@ function animate() {
 }
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
+
+
 // GET json from URL
-
-
-
 function getQueryParams(qs) {
 	qs = qs.split("+").join(" ");
 	var params = {},
@@ -50,6 +49,10 @@ function getQueryParams(qs) {
 var $_GET = getQueryParams(document.location.search);
 console.log($_GET["json"]); // would output "John"
 var mUrl;
+
+//check json file from url or use default one
+// URL for the JSON to load by default
+// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 
 if ($_GET['json']== undefined){
 	mUrl = '../images.json';
@@ -74,14 +77,11 @@ function GalleryImage( location, description, date, url ) {
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
-// URL for the JSON to load by default
-// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-//var mUrl = "../images.json";
-
+// XMLHttpRequest variable
 function reqListener () {
 	console.log(this.responseText);
 }
-// XMLHttpRequest variable
+
 var mRequest = new XMLHttpRequest();
 mRequest.addEventListener("load", reqListener);
 mRequest.open("GET", mUrl, false);

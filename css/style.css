@@ -34,6 +34,14 @@ body {
 	left: 300px;
 }
 
+.moreIndicator:hover {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
 .thumbnail {
 	position: relative;
 	box-shadow: 1px 3px 20px 0px;
@@ -54,6 +62,11 @@ body {
 	height: 42px;
 	width: 42px;
 	transform: rotate(180deg);
+    opacity: 1.0;
+
+}
+#prevPhoto:hover{
+    opacity: 0.5;
 }
 
 #nextPhoto {
@@ -61,6 +74,9 @@ body {
 	width: 42px;
 	position: relative;
 	left: 560px;
+}
+#nextPhoto:hover{
+    opacity: 0.5;
 }
 
 .details p {
@@ -74,8 +90,6 @@ body {
 img{
 	width: 100%;
 	height: auto;
-
-
 }
 /*Add CSS styles to rotate the element 90deg
 Make it animate nicely. You'll need CSS3 for this*/
