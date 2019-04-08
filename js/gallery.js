@@ -80,8 +80,17 @@ function swapPhoto() {
     if (mCurrentIndex === mImages.length){
         mCurrentIndex = 0;
     }
-
     console.log('swap photo');
+
+    //thumbnail image source
+    $(".thumbnail").attr("src", mImages[mCurrentIndex].url);
+
+    // image description details retrieve
+    let details = $(".details");
+    details.find(".location").text("Location: "+mImages[mCurrentIndex].location);
+    details.find(".description").text("Description: "+mImages[mCurrentIndex].description);
+    details.find(".date").text("Date: "+mImages[mCurrentIndex].date);
+    mCurrentIndex++;
 }
 
 
