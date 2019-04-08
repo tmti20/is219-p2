@@ -32,13 +32,6 @@ function animate() {
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
-function swapPhoto() {
-	//Add code here to access the #slideShow element.
-	//Access the img element and replace its source
-	//with a new image from your images array which is loaded 
-	//from the JSON string
-	console.log('swap photo');
-}
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -56,20 +49,18 @@ mRequest.addEventListener("load", reqListener);
 mRequest.open("GET", mUrl, false);
 mRequest.send();
 
-// Array holding GalleryImage objects (see below).
-var mImages = [];
-
 // Holds the retrived JSON information
 var mJson = JSON.parse(mRequest.responseText);
 console.log(mJson);
+
+// Array holding GalleryImage objects (see below).
+var mImages = [];
 
 // Populates mImages array with GalleryImage objects
 mJson.images.forEach(image => {
     mImages.push(new GalleryImage(image.imgLocation, image.description, image.date, image.imgPath));
 });
 console.log(mImages);
-
-
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
@@ -80,6 +71,19 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 		mImages.push(galleryImage);
 	}
 }
+
+function swapPhoto() {
+    //Add code here to access the #slideShow element.
+    //Access the img element and replace its source
+    //with a new image from your images array which is loaded
+    //from the JSON string
+    if (mCurrentIndex === mImages.length){
+        mCurrentIndex = 0;
+    }
+
+    console.log('swap photo');
+}
+
 
 $(document).ready( function() {
 	
