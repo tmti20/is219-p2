@@ -33,6 +33,19 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 
+//information image function that holds data.
+function GalleryImage( location, description, date, image ) {
+    //implement me as an object to hold the following data about an image:
+    //1. location where photo was taken
+    //2. description of photo
+    //3. the date when the photo was taken
+    //4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+    this.location = location;
+    this.description = description;
+    this.date = date;
+    this.image = image;
+}
+
 // GET json from URL
 function getQueryParams(qs) {
 	qs = qs.split("+").join(" ");
@@ -48,12 +61,13 @@ function getQueryParams(qs) {
 
 var $_GET = getQueryParams(document.location.search);
 console.log($_GET["json"]); // would output "John"
-var mUrl;
 
 //check json file from url or use default one
 // URL for the JSON to load by default
-// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
+var mUrl;
 
+
+// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 if ($_GET['json']== undefined){
 	mUrl = '../images.json';
 }
@@ -61,38 +75,26 @@ else {
 	mUrl = $_GET['json'];
 }
 
-//information image function that holds data.
-function GalleryImage( location, description, date, url ) {
-	//implement me as an object to hold the following data about an image:
-	//1. location where photo was taken
-	//2. description of photo
-	//3. the date when the photo was taken
-	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
-	this.location = location;
-	this.description = description;
-	this.date = date;
-	this.url = url;
-}
-
-// Counter for the mImages array
-var mCurrentIndex = 0;
-
 // XMLHttpRequest variable
-function reqListener () {
-	console.log(this.responseText);
+function XMLHttpListener () {
+	//console.log(this.responseText);
 }
 
 var mRequest = new XMLHttpRequest();
-mRequest.addEventListener("load", reqListener);
+mRequest.addEventListener("load", XMLHttpListener);
 mRequest.open("GET", mUrl, false);
 mRequest.send();
 
 // Holds the retrived JSON information
-var mJson = JSON.parse(mRequest.responseText);
-console.log(mJson);
+var mJson = JSON.parse(mRequest.response);
+//console.log(mJson);
 
 // Array holding GalleryImage objects (see below).
 var mImages = [];
+
+// Counter for the mImages array
+//var mCurrentIndex = 0;
+let mCurrentIndex = 0;
 
 // Populates mImages array with GalleryImage objects
 mJson.images.forEach(image => {
@@ -115,13 +117,12 @@ function swapPhoto() {
     //Access the img element and replace its source
     //with a new image from your images array which is loaded
     //from the JSON string
-    if (mCurrentIndex === mImages.length){
-        mCurrentIndex = 0;
+    if(mCurrentIndex < 0){
+        mCurrentIndex +=  mImages.length;
     }
-    console.log('swap photo');
 
     //thumbnail image source
-    $(".thumbnail").attr("src", mImages[mCurrentIndex].url);
+    $(".thumbnail").attr("src", mImages[mCurrentIndex].image);
 
     // image description details retrieve
     let details = $(".details");
@@ -129,6 +130,11 @@ function swapPhoto() {
     details.find(".description").text("Description: "+mImages[mCurrentIndex].description);
     details.find(".date").text("Date: "+mImages[mCurrentIndex].date);
     mCurrentIndex++;
+
+    if (mCurrentIndex === mImages.length){
+        mCurrentIndex = 0;
+    }
+    console.log('swap photo');
 }
 
 
@@ -136,11 +142,23 @@ $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
 	$('.details').eq(0).show();
+
+    $(".moreIndicator").click(function(){
+        $( "img.rot90" ).toggleClass("rot270",3000);
+        $(".details").slideToggle(1000);
+    });
+
+    $("#nextPhoto").click(function(){
+        swapPhoto();
+    });
+
+    $("#prevPhoto").click(function(){
+        mCurrentIndex -= 2;
+        swapPhoto();
+        console.log(mCurrentIndex);
+    });
 	
 });
-
-
-
 
 window.addEventListener('load', function() {
 	
